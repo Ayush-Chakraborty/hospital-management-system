@@ -1,0 +1,24 @@
+header {
+  width: 100vw;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo {
+  height: 3rem;
+  margin-right: 1.5rem;
+}
+.left_header {
+  display: flex;
+  align-items: center;
+}
+.left_header h1 {
+  color: var(--green);
+  font-weight: 800;
+  font-size: 1.4rem;
+}
+nav {
+  display: flex;
+  align-items: center;
+}

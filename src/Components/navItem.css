@@ -1,0 +1,13 @@
+.navItem {
+  color: var(--green);
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-left: 2rem;
+}
+.navItem:hover {
+  background-color: var(--green);
+  color: white;
+}

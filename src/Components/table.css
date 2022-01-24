@@ -1,0 +1,32 @@
+table {
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  width: 100%;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+thead {
+  background-color: #2dba3b;
+  color: white;
+  text-align: center;
+}
+tbody {
+  text-align: center;
+}
+th,
+td {
+  padding: 12px 15px;
+}
+tbody tr {
+  border-bottom: #2dba3b50 1px solid;
+}
+tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+tbody tr:last-of-type {
+  border-bottom: #2dba3b 2px solid;
+}
+tbody tr:hover {
+  background-color: #2dba3b40;
+}

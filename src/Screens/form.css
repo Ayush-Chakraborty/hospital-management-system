@@ -1,0 +1,76 @@
+form {
+  padding: 0 4rem;
+}
+form input,
+select {
+  padding: 10px 1rem;
+  border-radius: 5px;
+  outline: none;
+  border: 1px solid var(--green);
+  width: 80%;
+  max-width: 400px;
+  font-weight: 500;
+  background-color: #d5f1d8;
+}
+
+form input[type="text"]:focus {
+  border-width: 2px;
+  /* display: ; */
+}
+form label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--green);
+}
+form div {
+  margin-bottom: 15px;
+  margin-top: 25px;
+}
+form input[type="radio"] {
+  padding: 0;
+  width: auto;
+  margin-right: 15px;
+  margin-bottom: 10px;
+  transform: scale(1.1) translateY(1.5px);
+}
+.radioLabel {
+  font-size: 1rem;
+  color: black;
+  font-weight: 500;
+}
+
+.add,
+.submit {
+  outline: none;
+  border: none;
+  padding: 10px 20px;
+  background-color: var(--green);
+  color: white;
+  margin-left: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.consultantList {
+  display: flex;
+  flex-wrap: wrap;
+  /* margin-top: 0; */
+}
+.consultantList div {
+  background-color: #d5f1d8;
+  font-weight: 500;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin: 0 20px 10px 0;
+}
+.consultantList div:hover {
+  background-color: #bde2c1;
+}
+.consultantList span {
+  margin-left: 10px;
+}
+.submit {
+  width: 80%;
+  max-width: 400px;
+  margin-left: 0;
+  margin-bottom: 50px;
+}
