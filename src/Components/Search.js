@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Search({ placeholder }) {
+export default function Search({ placeholder, onChange }) {
   return (
     <input
       placeholder={placeholder}
@@ -15,6 +15,9 @@ export default function Search({ placeholder }) {
         outline: "none",
       }}
       type="search"
+      onChange={(e) => {
+        onChange(e.target.value);
+      }}
     ></input>
   );
 }

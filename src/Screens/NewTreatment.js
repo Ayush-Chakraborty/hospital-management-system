@@ -1,11 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./form.css";
-export default function NewTreatment() {
+import api from "../Api/treatment";
+export default function NewTreatment({ doctors, hide }) {
   const [payment, setPayment] = useState(true);
   const insurenceRef = useRef();
   const labelRef = useRef();
   const consultantRef = useRef();
-  const [consultantList, setConsultantList] = useState(["consultant"]);
+  const nameRef = useRef();
+  const catagoryRef = useRef();
+  const diseaseRef = useRef();
+  const dateRef = useRef();
+  const practitinoerRef = useRef();
+  const costRef = useRef();
+  const [consultantList, setConsultantList] = useState([]);
   useEffect(() => {
     if (payment) {
       insurenceRef.current.style.display = "none";
@@ -15,6 +22,20 @@ export default function NewTreatment() {
       insurenceRef.current.style.display = "";
     }
   }, [payment]);
+
+  const submitHandler = async () => {
+    const newRecord = {
+      name: nameRef.current.value,
+      catagory: catagoryRef.current.value,
+      disease: diseaseRef.current.value,
+      date: dateRef.current.value,
+      practitinoer: practitinoerRef.current.value,
+      cost: costRef.current.value,
+      issued: "No",
+      consultants: consultantList,
+    };
+    await api.createTreatment(newRecord, hide);
+  };
 
   return (
     <form
@@ -26,19 +47,38 @@ export default function NewTreatment() {
       <div>
         <label htmlFor="name">Patient Name</label>
       </div>
-      <input type="text" id="name" placeholder="Enter patient name" />
+      <input
+        type="text"
+        id="name"
+        placeholder="Enter patient name"
+        ref={nameRef}
+      />
+      <div>
+        <label htmlFor="catagory">Catagory</label>
+      </div>
+      <select name="" id="" placeholder="Select Catagory" ref={catagoryRef}>
+        <option value="Medicine">Medicine</option>
+        <option value="Vaccination">Vaccination</option>
+        <option value="Operation">Operation</option>
+        <option value="Check up">Check up</option>
+      </select>
       <div>
         <label htmlFor="disease">Disease</label>
       </div>
-      <input type="text" id="disease" placeholder="Enter disease name" />
+      <input
+        type="text"
+        id="disease"
+        placeholder="Enter disease name"
+        ref={diseaseRef}
+      />
       <div>
         <label htmlFor="completion_date">Expected Completion Date</label>
       </div>
-      <input type="date" id="completion_date" />
+      <input type="date" id="completion_date" ref={dateRef} />
       <div>
         <label htmlFor="cost">Expected Cost</label>
       </div>
-      <input type="number" id="cost" placeholder="Enter cost" />
+      <input type="number" id="cost" placeholder="Enter cost" ref={costRef} />
       <div>
         <label htmlFor="">Payment method</label>
       </div>
@@ -78,24 +118,32 @@ export default function NewTreatment() {
       <div>
         <label htmlFor="practitioner">Practitioner</label>
       </div>
-      <input
-        id="practitioner"
+
+      <select
+        id="practitioners"
         placeholder="Select practitioner"
-        list="practitioners"
-      />
-      <datalist id="practitioners">
-        <option value="Practitioner 1"></option>
-        <option value="Practitioner 2"></option>
-      </datalist>
+        ref={practitinoerRef}
+      >
+        {doctors &&
+          doctors.practitinoer &&
+          doctors.practitinoer.map((item) => (
+            <option key={item.id}>{item.name}</option>
+          ))}
+      </select>
       <div>
         <label htmlFor="consultant">Consultants</label>
       </div>
-      <input
+      <select
         id="consultant"
         placeholder="Select consultants"
-        list="consultants"
         ref={consultantRef}
-      />
+      >
+        {doctors &&
+          doctors.consultant &&
+          doctors.consultant.map((item) => (
+            <option key={item.id}>{item.name}</option>
+          ))}
+      </select>
       <button
         className="add"
         onClick={() => {
@@ -106,10 +154,7 @@ export default function NewTreatment() {
       >
         Add
       </button>
-      <datalist id="consultants">
-        <option value="Consultants 1"></option>
-        <option value="Consultants 2"></option>
-      </datalist>
+
       <div className="consultantList">
         {consultantList.map((consultant, index) => (
           <div
@@ -128,7 +173,9 @@ export default function NewTreatment() {
           </div>
         ))}
       </div>
-      <button className="submit">Submit</button>
+      <button className="submit" onClick={submitHandler}>
+        Submit
+      </button>
     </form>
   );
 }

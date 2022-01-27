@@ -1,0 +1,30 @@
+.doctor div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.doctor div button {
+  margin-top: 20px;
+  flex-grow: 0;
+  padding: 10px 20px !important;
+  width: auto;
+}
+.doctor input {
+  width: 90%;
+}
+.btn {
+  display: flex;
+  flex-direction: row !important;
+  justify-content: center;
+  gap: 20px;
+  padding: 10px 20px;
+}
+.btn button {
+  flex-grow: 1 !important;
+  margin-left: 0;
+  margin-top: 10px !important;
+  max-width: 190px;
+}
+.lastRow:last-child:hover {
+  background-color: initial;
+}

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import filter from "../assets/filter.svg";
 import dd from "../assets/dropdown.svg";
 import DropDownItem from "./DropDownItem";
-export default function Filter() {
+export default function Filter({ setFilter }) {
   const filterRef = useRef();
   const ddicon = useRef();
   const [onFilter, setOnFilter] = useState(false);
@@ -78,10 +78,46 @@ export default function Filter() {
           setInsidefilter(false);
         }}
       >
-        <DropDownItem text="Medicine" />
-        <DropDownItem text="Vaccination" />
-        <DropDownItem text="Operation" />
-        <DropDownItem text="Check up" />
+        <DropDownItem
+          text="Medicine"
+          onChange={(checked) => {
+            setFilter((prev) => {
+              const newFilter = [...prev];
+              newFilter[0] = checked;
+              return newFilter;
+            });
+          }}
+        />
+        <DropDownItem
+          text="Vaccination"
+          onChange={(checked) => {
+            setFilter((prev) => {
+              const newFilter = [...prev];
+              newFilter[1] = checked;
+              return newFilter;
+            });
+          }}
+        />
+        <DropDownItem
+          text="Operation"
+          onChange={(checked) => {
+            setFilter((prev) => {
+              const newFilter = [...prev];
+              newFilter[2] = checked;
+              return newFilter;
+            });
+          }}
+        />
+        <DropDownItem
+          text="Check up"
+          onChange={(checked) => {
+            setFilter((prev) => {
+              const newFilter = [...prev];
+              newFilter[3] = checked;
+              return newFilter;
+            });
+          }}
+        />
       </div>
     </div>
   );

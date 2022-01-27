@@ -6,6 +6,7 @@ table {
   overflow: hidden;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 }
+
 thead {
   background-color: #2dba3b;
   color: white;
@@ -29,4 +30,9 @@ tbody tr:last-of-type {
 }
 tbody tr:hover {
   background-color: #2dba3b40;
+}
+
+.doctor div {
+  width: auto;
+  flex-grow: 1;
 }

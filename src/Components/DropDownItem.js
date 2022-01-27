@@ -1,6 +1,6 @@
 import React from "react";
 import "./dropDownItem.css";
-export default function DropDownItem({ text }) {
+export default function DropDownItem({ text, onChange }) {
   return (
     <div
       style={{
@@ -23,6 +23,9 @@ export default function DropDownItem({ text }) {
             backgroundColor: "green",
           }}
           className="check"
+          onChange={(e) => {
+            onChange(e.target.checked);
+          }}
         />
         {text}
       </label>
