@@ -3,7 +3,7 @@ import api from "../Api/doctors";
 import CreateNew from "../Components/CreateNew";
 import Header from "../Components/Header";
 import "./doctor.css";
-export default function Doctor({ setTab, doctors }) {
+export default function Doctor({ setTab, doctors, fetchData }) {
   const [practitioner, setPractitioner] = useState(false);
   const [surgeon, setSurgeon] = useState(false);
   const [consultant, setConsultant] = useState(false);
@@ -69,14 +69,9 @@ export default function Doctor({ setTab, doctors }) {
                           await api.createDoctor(
                             1,
                             practitionerRef.current.value,
-                            setPractitionerList((prev) => [
-                              ...prev,
-                              {
-                                id: Date.now(),
-                                name: practitionerRef.current.value,
-                              },
-                            ])
+                            () => {}
                           );
+                          await fetchData();
                         }}
                       >
                         Add
@@ -130,14 +125,9 @@ export default function Doctor({ setTab, doctors }) {
                           await api.createDoctor(
                             2,
                             surgeonRef.current.value,
-                            setSurgeonList((prev) => [
-                              ...prev,
-                              {
-                                id: Date.now(),
-                                name: surgeonRef.current.value,
-                              },
-                            ])
+                            () => {}
                           );
+                          await fetchData();
                         }}
                       >
                         Add
@@ -191,14 +181,9 @@ export default function Doctor({ setTab, doctors }) {
                           await api.createDoctor(
                             3,
                             consultantRef.current.value,
-                            setConsultantList((prev) => [
-                              ...prev,
-                              {
-                                id: Date.now(),
-                                name: consultantRef.current.value,
-                              },
-                            ])
+                            () => {}
                           );
+                          await fetchData();
                         }}
                       >
                         Add

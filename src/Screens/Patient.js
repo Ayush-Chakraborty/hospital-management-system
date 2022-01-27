@@ -6,7 +6,7 @@ import Filter from "../Components/Filter";
 import CreateNew from "../Components/CreateNew";
 import TreatmentRecord from "../Components/TreatmentRecord";
 
-const Patient = ({ show, setTab, treatments }) => {
+const Patient = ({ show, setTab, treatments, fetchData }) => {
   const [filter, setFilter] = useState([false, false, false, false]);
   const [query, setQuery] = useState("");
   return (
@@ -26,7 +26,12 @@ const Patient = ({ show, setTab, treatments }) => {
         <Filter setFilter={setFilter} />
         <CreateNew onClick={show} />
       </div>
-      <TreatmentRecord treatments={treatments} filter={filter} query={query} />
+      <TreatmentRecord
+        treatments={treatments}
+        filter={filter}
+        query={query}
+        fetchData={fetchData}
+      />
     </div>
   );
 };

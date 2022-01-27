@@ -6,6 +6,7 @@ export default function NewTreatment({ doctors, hide }) {
   const insurenceRef = useRef();
   const labelRef = useRef();
   const consultantRef = useRef();
+  const surgeonRef = useRef();
   const nameRef = useRef();
   const catagoryRef = useRef();
   const diseaseRef = useRef();
@@ -13,6 +14,7 @@ export default function NewTreatment({ doctors, hide }) {
   const practitinoerRef = useRef();
   const costRef = useRef();
   const [consultantList, setConsultantList] = useState([]);
+  const [surgeonList, setSurgeonList] = useState([]);
   useEffect(() => {
     if (payment) {
       insurenceRef.current.style.display = "none";
@@ -33,7 +35,10 @@ export default function NewTreatment({ doctors, hide }) {
       cost: costRef.current.value,
       issued: "No",
       consultants: consultantList,
+      surgeons: surgeonList,
     };
+    if (insurenceRef.current.value)
+      newRecord.insurance_charge = insurenceRef.current.value;
     await api.createTreatment(newRecord, hide);
   };
 
@@ -86,6 +91,7 @@ export default function NewTreatment({ doctors, hide }) {
         type="radio"
         id="self_payment"
         name="payment"
+        // checked={true}
         onChange={(event) => {
           if (event.target.value) setPayment(true);
         }}
@@ -106,12 +112,12 @@ export default function NewTreatment({ doctors, hide }) {
         Payment through insurence
       </label>
       <div ref={labelRef}>
-        <label htmlFor="insurence">Insurence Company</label>
+        <label htmlFor="insurence">Insurence Charges</label>
       </div>
       <input
-        type="search"
+        type="number"
         id="insurence"
-        placeholder="Enter insurence company name"
+        placeholder="Enter insurence surcharge"
         ref={insurenceRef}
       />
 
@@ -170,6 +176,43 @@ export default function NewTreatment({ doctors, hide }) {
             id={index}
           >
             {consultant} <span>X</span>
+          </div>
+        ))}
+      </div>
+
+      <select id="surgeon" placeholder="Select surgeons" ref={surgeonRef}>
+        {doctors &&
+          doctors.surgeon &&
+          doctors.surgeon.map((item) => (
+            <option key={item.id}>{item.name}</option>
+          ))}
+      </select>
+      <button
+        className="add"
+        onClick={() => {
+          if (surgeonRef.current.value.length > 0) {
+            setSurgeonList((prev) => [...prev, surgeonRef.current.value]);
+          }
+        }}
+      >
+        Add
+      </button>
+
+      <div className="consultantList">
+        {surgeonList.map((surgeon, index) => (
+          <div
+            onClick={() => {
+              setSurgeonList((prev) => {
+                const newList = [];
+                for (let c of prev) {
+                  if (c !== surgeon) newList.push(c);
+                }
+                return newList;
+              });
+            }}
+            id={index}
+          >
+            {surgeon} <span>X</span>
           </div>
         ))}
       </div>

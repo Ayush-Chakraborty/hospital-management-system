@@ -21,18 +21,33 @@ const convertStringToArray = (string) => {
 };
 router.get("/", async (req, res) => {
   const data = await db.getTreatments();
-  for (let treatment of data)
-    treatment.consultants = convertStringToArray(treatment.consultants);
+  for (let treatment of data) {
+    if (treatment.surgeons)
+      treatment.surgeons = convertStringToArray(treatment.surgeons);
+    else treatment.surgeons = [];
+    if (treatment.consultants)
+      treatment.consultants = convertStringToArray(treatment.consultants);
+    else treatment.consultants = [];
+  }
 
   res.status(200).json(data);
 });
 
 router.post("/", async (req, res) => {
   const treatment = req.body;
-  treatment.consultants = convertArrayToString(treatment.consultants);
+  if (treatment.consultants)
+    treatment.consultants = convertArrayToString(treatment.consultants);
+  if (treatment.surgeons)
+    treatment.surgeons = convertArrayToString(treatment.surgeons);
   const data = { id: uuidv4(), ...treatment };
   await db.createTreatment(data);
 
+  res.status(201).json({ success: true });
+});
+
+router.put("/", async (req, res) => {
+  const treatment = req.body;
+  await db.updateTreatment(treatment.id, treatment);
   res.status(201).json({ success: true });
 });
 

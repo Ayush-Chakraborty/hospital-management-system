@@ -1,6 +1,7 @@
 const URL = "http://localhost:5000/treatments";
 
 const createTreatment = async (treatment, onSuccess) => {
+  console.log(treatment);
   const res = await fetch(URL, {
     method: "POST",
     headers: {
@@ -21,4 +22,16 @@ const getTreatments = async () => {
   return data;
 };
 
-export default { getTreatments, createTreatment };
+const updateTreatment = async (treatment, onSuccess) => {
+  console.log(treatment);
+  const res = await fetch(URL, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(treatment),
+  });
+  if (res.ok) onSuccess();
+};
+
+export default { getTreatments, createTreatment, updateTreatment };

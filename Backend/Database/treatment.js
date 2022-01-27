@@ -8,10 +8,8 @@ const createTreatment = (treatment) => {
   return knex("treatment").insert(treatment);
 };
 
-const getConsultants = () => {
-  return knex("treatment_consultant")
-    .join("consultant", "consultant.id", "treatment_consultant.consultant_id")
-    .select("treatment_consultant.treatment_id", "consultant.name");
+const updateTreatment = (id, treatment) => {
+  return knex("treatment").where("id", id).update(treatment);
 };
 
-export default { getTreatments, createTreatment, getConsultants };
+export default { getTreatments, createTreatment, updateTreatment };

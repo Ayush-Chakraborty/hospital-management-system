@@ -28,11 +28,23 @@ tbody tr:nth-of-type(even) {
 tbody tr:last-of-type {
   border-bottom: #2dba3b 2px solid;
 }
-tbody tr:hover {
-  background-color: #2dba3b40;
-}
+/* tbody tr:hover {
+  background-color: #00000070;
+  transform: translateX(-100px);
+} */
 
 .doctor div {
   width: auto;
   flex-grow: 1;
+}
+
+.issue {
+  background-color: rgb(43, 226, 113);
+  color: black;
+  outline: none;
+  border: none;
+  padding: 7px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
 }

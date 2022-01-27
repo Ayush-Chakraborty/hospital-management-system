@@ -5,28 +5,33 @@ import NewTreatment from "./Screens/NewTreatment";
 import Patient from "./Screens/Patient";
 import api from "./Api/doctors";
 import apiTreatmet from "./Api/treatment";
-
+import { CircularProgress } from "@mui/material";
+import Backdrop from "@mui/material/Backdrop";
 function App() {
   const floatingDivRef = useRef();
   const [tab, setTab] = useState(1);
-  const hide = () => {
+  // const [loading, setLoading] = useState(true);
+  const hide = async () => {
     floatingDivRef.current.style.display = "none";
+    await fetchData();
   };
   const show = () => {
     floatingDivRef.current.style.display = "";
   };
   const [doctors, setDoctors] = useState([]);
   const [treatments, setTreatments] = useState([]);
+  const fetchData = async () => {
+    const data = await api.getDoctor();
+    const data2 = await apiTreatmet.getTreatments();
+    setDoctors(data);
+    setTreatments(data2);
+    // setLoading(false);
+    // setTimeout(() => {
+    // }, 2000);
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await api.getDoctor();
-      const data2 = await apiTreatmet.getTreatments();
-      setDoctors(data);
-      setTreatments(data2);
-    };
     fetchData();
   }, []);
-
   return (
     <div
       className="App"
@@ -36,7 +41,12 @@ function App() {
     >
       {tab === 1 ? (
         <>
-          <Patient show={show} setTab={setTab} treatments={treatments} />
+          <Patient
+            show={show}
+            setTab={setTab}
+            treatments={treatments}
+            fetchData={fetchData}
+          />
           <div
             className="floating_div"
             ref={floatingDivRef}
@@ -54,7 +64,7 @@ function App() {
           </div>
         </>
       ) : (
-        <Doctor setTab={setTab} doctors={doctors} />
+        <Doctor setTab={setTab} doctors={doctors} fetchData={fetchData} />
       )}
     </div>
   );

@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import Fuse from "fuse.js";
 import "./table.css";
-
-export default function TreatmentRecord({ treatments, filter, query }) {
+import api from "../Api/treatment";
+const dash = "--";
+export default function TreatmentRecord({
+  treatments,
+  filter,
+  query,
+  fetchData,
+}) {
   const [actualList, setActualList] = useState([]);
   const [treatmentList, setTreatmentList] = useState([]);
   const [fuse, setFuse] = useState();
-
   useEffect(() => {
     setTreatmentList(treatments);
     setActualList(treatments);
@@ -53,13 +58,18 @@ export default function TreatmentRecord({ treatments, filter, query }) {
         <thead>
           <tr>
             <th>Patient Name</th>
-            <th>Treatment Catagory</th>
+            <th>
+              Treatment <br /> Catagory
+            </th>
             <th>Diesease</th>
             <th>Completed on</th>
             <th>Practitioner</th>
             <th>Consultant</th>
-            <th>Totalo cost</th>
-            <th>Prescription issued</th>
+            <th>Surgeons</th>
+            <th>Total cost</th>
+            <th>
+              Prescription <br /> issued
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -82,14 +92,69 @@ export default function TreatmentRecord({ treatments, filter, query }) {
               <td>{item.date}</td>
               <td>{item.practitinoer}</td>
               <td>
-                <ul>
-                  {item.consultants.map((i) => (
-                    <li>{i}</li>
-                  ))}
-                </ul>
+                {item.consultants.length > 0 ? (
+                  <ul>
+                    {item.consultants.map((i) => (
+                      <li>{i}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  dash
+                )}
               </td>
-              <td>{item.cost}</td>
-              <td>{item.issued}</td>
+              <td>
+                {item.surgeons.length > 0 ? (
+                  <ul>
+                    {item.surgeons.map((i) => (
+                      <li>{i}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  dash
+                )}
+              </td>
+              <td>
+                {item.insurance_charge ? (
+                  <>
+                    <span style={{ fontWeight: "bold" }}>Base cost:&nbsp;</span>
+                    {item.cost}
+                    <br />
+                    <span style={{ fontWeight: "bold" }}>
+                      Insurance charges:&nbsp;
+                    </span>
+                    {item.insurance_charge}
+                  </>
+                ) : (
+                  item.cost
+                )}
+              </td>
+              <td
+                style={
+                  item.issued === "Yes"
+                    ? {
+                        fontWeight: "700",
+                        color: "rgb(43, 107, 226)",
+                      }
+                    : {}
+                }
+              >
+                {item.issued === "Yes" ? (
+                  item.issued
+                ) : (
+                  <button
+                    className="issue"
+                    onClick={async () => {
+                      await api.updateTreatment(
+                        { ...item, issued: "Yes" },
+                        () => {}
+                      );
+                      await fetchData();
+                    }}
+                  >
+                    Issue
+                  </button>
+                )}
+              </td>
             </tr>
           ))}
         </tbody>
