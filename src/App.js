@@ -11,11 +11,14 @@ function App() {
   const floatingDivRef = useRef();
   const [tab, setTab] = useState(1);
   // const [loading, setLoading] = useState(true);
+  const [visible, setVisible] = useState(false);
   const hide = async () => {
+    setVisible(false);
     floatingDivRef.current.style.display = "none";
     await fetchData();
   };
   const show = () => {
+    setVisible(true);
     floatingDivRef.current.style.display = "";
   };
   const [doctors, setDoctors] = useState([]);
@@ -60,7 +63,7 @@ function App() {
                 X
               </h1>
             </div>
-            <NewTreatment doctors={doctors} hide={hide} />
+            {visible && <NewTreatment doctors={doctors} hide={hide} />}
           </div>
         </>
       ) : (
