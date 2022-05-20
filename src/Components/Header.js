@@ -12,14 +12,14 @@ export default function Header({ index, setTab }) {
       <nav>
         <NavItem
           text="Patients"
-          isActive={index == 0}
+          isActive={index === 0}
           onClick={() => {
             setTab(1);
           }}
         />
         <NavItem
           text="Doctors"
-          isActive={index == 1}
+          isActive={index === 1}
           onClick={() => {
             setTab(2);
           }}

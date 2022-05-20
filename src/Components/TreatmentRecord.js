@@ -43,7 +43,7 @@ export default function TreatmentRecord({
       else if (filter[3] && item.catagory === "Check up") newList.push(item);
     }
     setTreatmentList(newList);
-  }, [filter, query]);
+  }, [filter, query, actualList, fuse]);
   if (!treatmentList) return <></>;
   return (
     <div

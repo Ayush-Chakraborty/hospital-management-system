@@ -1,4 +1,4 @@
-const URL = "http://localhost:5000/treatments";
+const URL = "https://hospital-mangement-ac.herokuapp.com/treatments";
 
 const createTreatment = async (treatment, onSuccess) => {
   console.log(treatment);
@@ -34,4 +34,5 @@ const updateTreatment = async (treatment, onSuccess) => {
   if (res.ok) onSuccess();
 };
 
-export default { getTreatments, createTreatment, updateTreatment };
+const exps = { getTreatments, createTreatment, updateTreatment };
+export default exps;

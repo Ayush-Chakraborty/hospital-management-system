@@ -5,8 +5,8 @@ import NewTreatment from "./Screens/NewTreatment";
 import Patient from "./Screens/Patient";
 import api from "./Api/doctors";
 import apiTreatmet from "./Api/treatment";
-import { CircularProgress } from "@mui/material";
-import Backdrop from "@mui/material/Backdrop";
+// import { CircularProgress } from "@mui/material";
+// import Backdrop from "@mui/material/Backdrop";
 function App() {
   const floatingDivRef = useRef();
   const [tab, setTab] = useState(1);

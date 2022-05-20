@@ -1,4 +1,4 @@
-const URL = "http://localhost:5000/doctors";
+const URL = "https://hospital-mangement-ac.herokuapp.com/doctors";
 
 const getDoctor = async () => {
   const res = await fetch(URL, {
@@ -23,4 +23,5 @@ const createDoctor = async (type, name, onSuccess) => {
   onSuccess();
 };
 
-export default { getDoctor, createDoctor };
+const exps = { getDoctor, createDoctor };
+export default exps;

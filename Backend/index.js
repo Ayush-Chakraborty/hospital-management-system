@@ -4,7 +4,7 @@ import doctorRoutes from "./routes/doctors.js";
 import treatmentRoutes from "./routes/treatments.js";
 import cors from "cors";
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 app.use(bodyParser.json());
 
